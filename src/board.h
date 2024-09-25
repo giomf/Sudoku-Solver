@@ -4,25 +4,34 @@
 #include <array>
 #include <expected>  // C++23 feature
 #include <filesystem>
+#include <memory>
 #include <string>
 
+#include "constants.h"
 #include "field.h"
+#include "fieldContainer.h"
 
-const int BOARD_SIZE = 9;
-
-using Row = std::array<std::shared_ptr<Field>, BOARD_SIZE>;
-using Column = std::array<std::shared_ptr<Field>, BOARD_SIZE>;
+using Row = FieldContainer;
+using Column = FieldContainer;
+using Section = FieldContainer;
+using RawBoard = std::array<std::array<int, BOARD_SIZE>, BOARD_SIZE>;
 
 class Board {
  private:
-  std::array<std::array<std::shared_ptr<Field>, BOARD_SIZE>, BOARD_SIZE> fields;
+  std::array<std::array<Field, BOARD_SIZE>, BOARD_SIZE> board;
+  std::array<FieldContainer, BOARD_SIZE> rows;
+  std::array<FieldContainer, BOARD_SIZE> columns;
+  std::array<FieldContainer, BOARD_SIZE> sections;
 
  public:
-  std::expected<void, std::string> loadBoard(const std::filesystem::path &path);
-  std::shared_ptr<Field> getField(const int rowIndex,
-                                  const int columnIndex) const;
-  Row getRow(const int rowIndex) const;
-  Column getColumn(const int columnIndex) const;
+  std::expected<void, std::string> loadBoard(
+      const std::filesystem::path &filePath);
+  std::expected<void, std::string> loadBoard(const std::string &fileContent);
+  std::expected<void, std::string> loadBoard(const RawBoard &rawBoard);
+
+  Field getField(const int row, const int column) const;
+  Row getRow(const int row) const;
+  Column getColumn(const int column) const;
   void print() const;
 };
 
