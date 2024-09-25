@@ -1,0 +1,4 @@
+[[language]]
+name="cpp"
+formatter = { command = "clang-format", args = ["--style=google"] }
+auto-format = true

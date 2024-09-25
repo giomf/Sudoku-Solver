@@ -10,18 +10,19 @@
 
 const int BOARD_SIZE = 9;
 
-using Row = std::array<Field, BOARD_SIZE>;
-using Column = std::array<Field, BOARD_SIZE>;
+using Row = std::array<std::shared_ptr<Field>, BOARD_SIZE>;
+using Column = std::array<std::shared_ptr<Field>, BOARD_SIZE>;
 
 class Board {
  private:
-  std::array<std::array<Field, BOARD_SIZE>, BOARD_SIZE> fields;
+  std::array<std::array<std::shared_ptr<Field>, BOARD_SIZE>, BOARD_SIZE> fields;
 
  public:
   std::expected<void, std::string> loadBoard(const std::filesystem::path &path);
-  Field getField(const int rowIndex, const int columnIndex) const;
+  std::shared_ptr<Field> getField(const int rowIndex,
+                                  const int columnIndex) const;
   Row getRow(const int rowIndex) const;
-  Column getCol(const int columnIndex) const;
+  Column getColumn(const int columnIndex) const;
   void print() const;
 };
 

@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <memory>
 
 #include "board.h"
 
@@ -17,7 +18,8 @@ std::expected<void, std::string> Board::loadBoard(
   int lineCount = 0;
   while (std::getline(file, line)) {
     for (int valuePos = 0; valuePos < CSV_LINE_LENGTH; valuePos += 2) {
-      fields[lineCount][valuePos / 2] = Field(line[valuePos] - '0');
+      fields[lineCount][valuePos / 2] =
+          std::make_shared<Field>(line[valuePos] - '0');
     }
     lineCount++;
   }
@@ -25,23 +27,24 @@ std::expected<void, std::string> Board::loadBoard(
   return {};
 }
 
-Field Board::getField(const int rowIndex, const int columnIndex) const {
+std::shared_ptr<Field> Board::getField(const int rowIndex,
+                                       const int columnIndex) const {
   return fields[rowIndex][columnIndex];
 }
 
 Row Board::getRow(const int rowIndex) const { return fields[rowIndex]; }
-Row Board::getCol(const int columnIndex) const {
+Column Board::getColumn(const int columnIndex) const {
   Column column;
-  for (int rowIndex = 0; rowIndex < BOARD_SIZE; rowIndex++) {
+  for (int rowIndex = 0; rowIndex < BOARD_SIZE; ++rowIndex) {
     column[rowIndex] = fields[rowIndex][columnIndex];
   }
   return column;
 }
 
 void Board::print() const {
-  for (int row = 0; row < BOARD_SIZE; row++) {
-    for (int col = 0; col < BOARD_SIZE; col++) {
-      std::cout << getField(row, col).getValue();
+  for (int rowIndex = 0; rowIndex < BOARD_SIZE; ++rowIndex) {
+    for (int columnIndex = 0; columnIndex < BOARD_SIZE; ++columnIndex) {
+      std::cout << getField(rowIndex, columnIndex)->getValue();
     }
     std::cout << std::endl;
   }
