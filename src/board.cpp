@@ -3,8 +3,8 @@
 #include <fstream>
 #include <iostream>
 
-#include "board.h"
-#include "constants.h"
+#include "board.hpp"
+#include "constants.hpp"
 
 std::expected<void, std::string> Board::loadBoard(
     const std::filesystem::path &filePath) {

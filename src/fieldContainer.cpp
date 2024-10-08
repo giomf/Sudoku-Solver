@@ -2,8 +2,8 @@
 #include <ranges>
 #include <vector>
 
-#include "constants.h"
-#include "fieldContainer.h"
+#include "constants.hpp"
+#include "fieldContainer.hpp"
 
 const std::array<int, BOARD_SIZE> FULL_SET = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 

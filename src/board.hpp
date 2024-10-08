@@ -7,9 +7,9 @@
 #include <memory>
 #include <string>
 
-#include "constants.h"
-#include "field.h"
-#include "fieldContainer.h"
+#include "constants.hpp"
+#include "field.hpp"
+#include "fieldContainer.hpp"
 
 using Row = FieldContainer;
 using Column = FieldContainer;

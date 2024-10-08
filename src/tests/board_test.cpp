@@ -1,7 +1,7 @@
 #include <filesystem>
 
-#include "board.h"
-#include "constants.h"
+#include "board.hpp"
+#include "constants.hpp"
 #include "gtest/gtest.h"
 
 const std::string VALID_FILE_CONTENT =

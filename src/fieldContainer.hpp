@@ -4,8 +4,8 @@
 #include <array>
 #include <vector>
 
-#include "constants.h"
-#include "field.h"
+#include "constants.hpp"
+#include "field.hpp"
 
 class FieldContainer {
  private:

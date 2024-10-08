@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "board.h"
+#include "board.hpp"
 
 const std::filesystem::path BOARD_PATH = "./field.csv";
 
