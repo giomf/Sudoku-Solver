@@ -19,7 +19,7 @@ add_subdirectory(libs/spdlog)
 add_subdirectory(libs/googletest)
 
 set(LIB_SOURCES src/board.cpp src/fieldContainer.cpp)
-set(TEST_SOURCES src/tests/main.cpp src/tests/board_test.cpp)
+set(TEST_SOURCES src/tests/main.cpp src/tests/board_test.cpp src/tests/fieldcontainer_test.cpp)
 
 # Add the main executable
 add_executable(${PROGRAM_NAME} src/main.cpp)

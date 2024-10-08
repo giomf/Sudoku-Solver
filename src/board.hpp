@@ -4,7 +4,6 @@
 #include <array>
 #include <expected>  // C++23 feature
 #include <filesystem>
-#include <memory>
 #include <string>
 
 #include "constants.hpp"

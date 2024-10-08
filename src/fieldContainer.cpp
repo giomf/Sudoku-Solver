@@ -1,20 +1,24 @@
 #include <algorithm>
-#include <ranges>
 #include <vector>
 
 #include "constants.hpp"
 #include "fieldContainer.hpp"
 
-const std::array<int, BOARD_SIZE> FULL_SET = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+constexpr std::array<int, BOARD_SIZE> FULL_SET = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
 std::vector<int> FieldContainer::getCandidates() const {
   std::vector<int> candidates;
+  std::vector<int> rawFields(fields.size());
 
-  std::transform(fields.begin(), fields.end(), candidates.begin(),
+  std::transform(fields.begin(), fields.end(), rawFields.begin(),
                  [](Field* field) { return field->getValue(); });
 
-  // std::set_difference(FULL_SET.begin(), FULL_SET.end(), fields.begin(),
-  //                     fields.end(),
-  //                     std::inserter(candidates, candidates.begin()));
+  std::sort(rawFields.begin(), rawFields.end());
+  std::set_difference(FULL_SET.begin(), FULL_SET.end(), rawFields.begin(),
+                      rawFields.end(),
+                      std::inserter(candidates, candidates.begin()));
+
   return candidates;
 }
+
+Field FieldContainer::getField(const int index) const { return *fields[index]; }

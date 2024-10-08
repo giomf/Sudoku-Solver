@@ -15,6 +15,7 @@ class FieldContainer {
   FieldContainer() {};
   FieldContainer(std::array<Field*, BOARD_SIZE> fields) : fields(fields) {};
   std::vector<int> getCandidates() const;
+  Field getField(const int index) const;
 };
 
 #endif  // FIELDCONTAINER_H

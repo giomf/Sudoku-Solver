@@ -62,9 +62,8 @@ std::expected<void, std::string> Board::loadBoard(const RawBoard &rawBoard) {
   for (int row = 0; row < BOARD_SIZE; ++row) {
     std::array<Field *, BOARD_SIZE> rowFields;
     for (int column = 0; column < BOARD_SIZE; ++column) {
-      auto field = Field(rawBoard[row][column]);
-      board[row][column] = field;
-      rowFields[column] = &field;
+      board[row][column] = Field(rawBoard[row][column]);
+      rowFields[column] = &board[row][column];
     }
     rows[row] = Row(rowFields);
   }
