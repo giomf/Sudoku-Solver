@@ -4,6 +4,7 @@
 #include <string>
 
 #include "board.hpp"
+#include "game.hpp"
 
 const std::filesystem::path BOARD_PATH = "./field.csv";
 
@@ -39,7 +40,11 @@ int main() {
     std::cerr << result.error() << std::endl;
     return 1;
   }
-  board.print();
+
+  std::cout << "Read board: \n" << board.toString() << std::endl;
+  Game game(board);
+  board = game.solve();
+  std::cout << "Solved board: \n" << board.toString() << std::endl;
 
   return 0;
 }

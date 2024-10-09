@@ -4,3 +4,6 @@
 [submodule "libs/spdlog"]
 	path = libs/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "libs/argparse"]
+	path = libs/argparse
+	url = https://github.com/p-ranav/argparse.git

@@ -2,6 +2,8 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include <string>
 
 #include "board.hpp"
 #include "constants.hpp"
@@ -65,6 +67,9 @@ std::expected<void, std::string> Board::loadBoard(const RawBoard &rawBoard) {
 int Board::getField(const int row, const int column) const {
   return board[row][column];
 }
+void Board::setField(const int row, const int column, const int value) {
+  board[row][column] = value;
+}
 
 Fields Board::getRow(const int row) const { return board[row]; }
 
@@ -116,11 +121,16 @@ std::tuple<int, int> Board::getSectionIndexPair(const int index) {
   return std::make_tuple(begin, end);
 }
 
-void Board::print() const {
+std::string Board::toString() const {
+  std::stringstream ss;
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int column = 0; column < BOARD_SIZE; ++column) {
-      std::cout << getField(row, column);
+      ss << getField(row, column);
+      if (column < BOARD_SIZE - 1) {
+        ss << ',';
+      }
     }
-    std::cout << std::endl;
+    ss << '\n';
   }
+  return ss.str();
 }

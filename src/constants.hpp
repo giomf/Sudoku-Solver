@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+constexpr int MAX_SOLVE_ITERATIONS = 100;
+
 constexpr int BOARD_SIZE = 9;
 constexpr int SECTION_SIZE = 3;
 constexpr int CSV_LINE_LENGTH = 17;

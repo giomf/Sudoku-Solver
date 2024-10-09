@@ -26,10 +26,12 @@ class Board {
   std::expected<void, std::string> loadBoard(const RawBoard &rawBoard);
 
   int getField(const int row, const int column) const;
+  void setField(const int row, const int column, const int value);
   Fields getRow(const int row) const;
   Fields getColumn(const int column) const;
   Fields getSection(const int row, const int column) const;
-  void print() const;
+  std::string toString() const;
+  void write() const;
 };
 
 #endif  // BOARD_H
