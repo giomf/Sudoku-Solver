@@ -104,6 +104,7 @@ Field Board::getField(const int row, const int column) const {
 
 Row Board::getRow(const int row) const { return rows[row]; }
 Column Board::getColumn(const int column) const { return columns[column]; }
+Section Board::getSection(const int section) const { return sections[section]; }
 
 void Board::print() const {
   for (int row = 0; row < BOARD_SIZE; ++row) {

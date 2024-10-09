@@ -31,6 +31,7 @@ class Board {
   Field getField(const int row, const int column) const;
   Row getRow(const int row) const;
   Column getColumn(const int column) const;
+  Section getSection(const int section) const;
   void print() const;
 };
 

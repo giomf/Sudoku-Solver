@@ -13,7 +13,7 @@ const std::string VALID_FILE_CONTENT =
     "0,0,0,0,0,1,2,3,4\n"
     "0,0,0,0,0,0,1,2,3\n"
     "0,0,0,0,0,0,0,1,2\n"
-    "0,0,0,0,0,0,0,0,0\n";
+    "0,0,0,0,0,0,0,0,1\n";
 
 constexpr RawBoard VALID_RAW_BOARD = {{
     {1, 2, 3, 4, 5, 6, 7, 8, 9},
@@ -24,7 +24,7 @@ constexpr RawBoard VALID_RAW_BOARD = {{
     {0, 0, 0, 0, 0, 1, 2, 3, 4},
     {0, 0, 0, 0, 0, 0, 1, 2, 3},
     {0, 0, 0, 0, 0, 0, 0, 1, 2},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 1},
 }};
 
 TEST(BoardTests, loadBoard_FileNotFound) {
@@ -56,7 +56,6 @@ TEST(BoardTests, loadBoard_RowsSuccessful) {
 }
 
 TEST(BoardTests, loadBoard_ColumnsSuccessful) {
-  GTEST_SKIP();
   Board board;
   ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
   for (int column = 0; column < BOARD_SIZE; ++column) {
@@ -71,7 +70,6 @@ TEST(BoardTests, loadBoard_SectionsSuccessful) {
   GTEST_SKIP();
   // Board board;
   // ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
-  // // TODO
 }
 
 TEST(BoardTests, loadBoard_ParsingFailed_ContentLengthToLong) {
