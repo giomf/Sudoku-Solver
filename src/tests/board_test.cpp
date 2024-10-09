@@ -38,38 +38,9 @@ TEST(BoardTests, loadBoard_FieldsSuccessful) {
   ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int column = 0; column < BOARD_SIZE; ++column) {
-      ASSERT_EQ(VALID_RAW_BOARD[row][column],
-                board.getField(row, column).getValue());
+      ASSERT_EQ(VALID_RAW_BOARD[row][column], board.getField(row, column));
     }
   }
-}
-
-TEST(BoardTests, loadBoard_RowsSuccessful) {
-  Board board;
-  ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    for (int column = 0; column < BOARD_SIZE; ++column) {
-      ASSERT_EQ(VALID_RAW_BOARD[row][column],
-                board.getRow(row).getField(column).getValue());
-    }
-  }
-}
-
-TEST(BoardTests, loadBoard_ColumnsSuccessful) {
-  Board board;
-  ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
-  for (int column = 0; column < BOARD_SIZE; ++column) {
-    for (int row = 0; row < BOARD_SIZE; ++row) {
-      ASSERT_EQ(VALID_RAW_BOARD[row][column],
-                board.getColumn(column).getField(row).getValue());
-    }
-  }
-}
-
-TEST(BoardTests, loadBoard_SectionsSuccessful) {
-  GTEST_SKIP();
-  // Board board;
-  // ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
 }
 
 TEST(BoardTests, loadBoard_ParsingFailed_ContentLengthToLong) {
@@ -117,4 +88,42 @@ TEST(BoardTests, loadBoard_ParsingFailed_InvalidValue) {
   invalidBoard.insert(1, "A");
 
   ASSERT_FALSE(board.loadBoard(invalidBoard));
+}
+
+TEST(BoardTests, getRow) {
+  Board board;
+  ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
+
+  auto result = board.getRow(0);
+  Fields expected{1, 2, 3, 4, 5, 6, 7, 8, 9};
+  ASSERT_TRUE(std::equal(expected.begin(), expected.end(), result.begin()));
+}
+
+TEST(BoardTests, getColumn) {
+  Board board;
+  ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
+  auto result = board.getColumn(4);
+  Fields expected{5, 4, 3, 2, 1, 0, 0, 0, 0};
+  ASSERT_TRUE(std::equal(expected.begin(), expected.end(), result.begin()));
+}
+
+TEST(BoardTests, getSection) {
+  Board board;
+  ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));
+
+  auto result = board.getSection(0, 0);
+  Fields expected{1, 2, 3, 0, 1, 2, 0, 0, 1};
+  ASSERT_EQ(expected, result);
+
+  result = board.getSection(8, 8);
+  expected = {1, 2, 3, 0, 1, 2, 0, 0, 1};
+  ASSERT_EQ(expected, result);
+
+  result = board.getSection(4, 4);
+  expected = {1, 2, 3, 0, 1, 2, 0, 0, 1};
+  ASSERT_EQ(expected, result);
+
+  result = board.getSection(0, 8);
+  expected = {7, 8, 9, 6, 7, 8, 5, 6, 7};
+  ASSERT_EQ(expected, result);
 }

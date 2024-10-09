@@ -58,58 +58,68 @@ std::expected<void, std::string> Board::loadBoard(
 }
 
 std::expected<void, std::string> Board::loadBoard(const RawBoard &rawBoard) {
-  // Set the fields and rows
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    std::array<Field *, BOARD_SIZE> rowFields;
-    for (int column = 0; column < BOARD_SIZE; ++column) {
-      board[row][column] = Field(rawBoard[row][column]);
-      rowFields[column] = &board[row][column];
-    }
-    rows[row] = Row(rowFields);
-  }
-
-  // Set the columns
-  for (int column = 0; column < BOARD_SIZE; ++column) {
-    std::array<Field *, BOARD_SIZE> columnsFields;
-    for (int row = 0; row < BOARD_SIZE; ++row) {
-      columnsFields[row] = &board[row][column];
-    }
-    columns[column] = Column(columnsFields);
-  }
-
-  // Set the sections
-  int sectionIndex = 0;
-  for (int row = 0; row < BOARD_SIZE; row += SECTION_SIZE) {
-    for (int column = 0; column < BOARD_SIZE; column += SECTION_SIZE) {
-      std::array<Field *, BOARD_SIZE> sectionFields;
-      int FieldIndex = 0;
-      for (int subRow = 0; subRow < SECTION_SIZE; ++subRow) {
-        for (int subColumn = 0; subColumn < SECTION_SIZE; ++subColumn) {
-          sectionFields[FieldIndex] = &board[row + subRow][column + subColumn];
-          ++FieldIndex;
-        }
-      }
-      FieldIndex = 0;
-      sections[sectionIndex] = Section(sectionFields);
-      ++sectionIndex;
-    }
-  }
-
+  board = rawBoard;
   return {};
 }
 
-Field Board::getField(const int row, const int column) const {
+int Board::getField(const int row, const int column) const {
   return board[row][column];
 }
 
-Row Board::getRow(const int row) const { return rows[row]; }
-Column Board::getColumn(const int column) const { return columns[column]; }
-Section Board::getSection(const int section) const { return sections[section]; }
+Fields Board::getRow(const int row) const { return board[row]; }
+
+Fields Board::getColumn(const int columnIndex) const {
+  Fields column;
+  for (int rowIndex = 0; rowIndex < BOARD_SIZE; ++rowIndex) {
+    column[rowIndex] = board[rowIndex][columnIndex];
+  }
+  return column;
+}
+
+Fields Board::getSection(const int row, const int column) const {
+  auto [rowBegin, rowEnd, columnBegin, columnEnd] =
+      Board::getSectionIndex(row, column);
+  Fields section;
+  int index = 0;
+  for (int rowIndex = rowBegin; rowIndex < rowEnd; ++rowIndex) {
+    for (int columnIndex = columnBegin; columnIndex < columnEnd;
+         ++columnIndex) {
+      section[index] = board[rowIndex][columnIndex];
+      ++index;
+    }
+  }
+
+  return section;
+}
+
+std::tuple<int, int, int, int> Board::getSectionIndex(const int row,
+                                                      const int column) {
+  auto [rowBegin, rowEnd] = Board::getSectionIndexPair(row);
+  auto [columnBegin, columnEnd] = Board::getSectionIndexPair(column);
+  return std::make_tuple(rowBegin, rowEnd, columnBegin, columnEnd);
+}
+
+std::tuple<int, int> Board::getSectionIndexPair(const int index) {
+  int begin = 0, end = 0;
+
+  if (index >= SECTION_INDEX_1 && index < SECTION_INDEX_2) {
+    begin = SECTION_INDEX_1;
+    end = SECTION_INDEX_2;
+  } else if (index <= SECTION_INDEX_1) {
+    begin = 0;
+    end = SECTION_INDEX_1;
+  } else {
+    begin = SECTION_INDEX_2;
+    end = SECTION_INDEX_3;
+  }
+
+  return std::make_tuple(begin, end);
+}
 
 void Board::print() const {
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int column = 0; column < BOARD_SIZE; ++column) {
-      std::cout << getField(row, column).getValue();
+      std::cout << getField(row, column);
     }
     std::cout << std::endl;
   }
