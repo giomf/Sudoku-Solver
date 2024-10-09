@@ -1,28 +1,11 @@
 #include <spdlog/spdlog.h>
 
-#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 
 #include "board.hpp"
 #include "constants.hpp"
-
-std::expected<void, std::string> Board::loadBoard(
-    const std::filesystem::path &filePath) {
-  std::ifstream file(filePath);
-
-  if (!file) {
-    return std::unexpected("Error: failed to open file: " + filePath.string());
-  }
-
-  std::stringstream buffer;
-  buffer << file.rdbuf();
-  file.close();
-  const auto fileContent = buffer.str();
-  spdlog::debug("File content:\n{}", fileContent);
-  return loadBoard(fileContent);
-}
 
 std::expected<void, std::string> Board::loadBoard(
     const std::string &fileContent) {

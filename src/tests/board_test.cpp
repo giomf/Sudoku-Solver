@@ -27,12 +27,6 @@ constexpr RawBoard VALID_RAW_BOARD = {{
     {0, 0, 0, 0, 0, 0, 0, 0, 1},
 }};
 
-TEST(BoardTests, loadBoard_FileNotFound) {
-  Board board;
-  std::filesystem::path fileThatDoesNotExists = "/file/that/does/not/exists";
-  ASSERT_FALSE(board.loadBoard(fileThatDoesNotExists));
-}
-
 TEST(BoardTests, loadBoard_FieldsSuccessful) {
   Board board;
   ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));

@@ -17,13 +17,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Add libs as a subdirectory
 add_subdirectory(libs/spdlog)
 add_subdirectory(libs/googletest)
+add_subdirectory(libs/argparse)
 
 set(LIB_SOURCES src/board.cpp src/game.cpp)
 set(TEST_SOURCES src/tests/main.cpp src/tests/board_test.cpp)
 
 # Add the main executable
 add_executable(${PROGRAM_NAME} src/main.cpp)
-target_link_libraries(${PROGRAM_NAME} PRIVATE ${PROGRAM_LIB_NAME})
+target_link_libraries(${PROGRAM_NAME} PRIVATE ${PROGRAM_LIB_NAME} argparse)
 
 # Add main Lib
 add_library(${PROGRAM_LIB_NAME} STATIC ${LIB_SOURCES})

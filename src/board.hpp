@@ -3,7 +3,6 @@
 
 #include <array>
 #include <expected>  // C++23 feature
-#include <filesystem>
 #include <string>
 #include <tuple>
 
@@ -20,8 +19,6 @@ class Board {
                                                         const int column);
 
  public:
-  std::expected<void, std::string> loadBoard(
-      const std::filesystem::path &filePath);
   std::expected<void, std::string> loadBoard(const std::string &fileContent);
   std::expected<void, std::string> loadBoard(const RawBoard &rawBoard);
 
