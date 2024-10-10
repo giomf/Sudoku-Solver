@@ -9,6 +9,15 @@
 #include "board.hpp"
 #include "game.hpp"
 
+/**
+ * @brief Sets the log level for the application based on the `LOG_LEVEL`
+ * environment variable.
+ *
+ * This function reads the `LOG_LEVEL` environment variable and adjusts the
+ * logging level for the application. If the variable is not set or is invalid,
+ * it defaults to 'info'. Supported log levels: debug, info, warn, error,
+ * critical, off.
+ */
 void setLogLevel() {
   const char* logLevel = std::getenv("LOG_LEVEL");
 
@@ -32,6 +41,17 @@ void setLogLevel() {
   }
 }
 
+/**
+ * @brief Loads the content of a file into a string.
+ *
+ * This function reads the content of the file at the given file path and
+ * returns it as a string. If the file cannot be opened, an error message is
+ * returned.
+ *
+ * @param filePath The path to the file to be loaded.
+ * @return A string containing the file's contents if successful, or an error
+ * message on failure.
+ */
 std::expected<std::string, std::string> loadFile(
     const std::filesystem::path& filePath) {
   std::ifstream file(filePath);
@@ -46,6 +66,16 @@ std::expected<std::string, std::string> loadFile(
   return buffer.str();
 }
 
+/**
+ * @brief Writes content to a file at the specified file path.
+ *
+ * This function writes the provided content to the file at the given file path.
+ * If the file cannot be opened, an error message is returned.
+ *
+ * @param filePath The path to the file where content will be written.
+ * @param content The content to write to the file.
+ * @return void on success, or an error message on failure.
+ */
 std::expected<void, std::string> writeFile(
     const std::filesystem::path& filePath, std::string content) {
   std::ofstream file(filePath);
@@ -59,6 +89,23 @@ std::expected<void, std::string> writeFile(
   return {};
 }
 
+/**
+ * @brief The main function of the Sudoku Solver program.
+ *
+ * This function sets up the command-line argument parser, loads a Sudoku puzzle
+ * from a file, solves the puzzle, and either prints the solved board to the
+ * console or writes it to a file depending on the command-line arguments
+ * provided.
+ *
+ * Command-line arguments:
+ * - `--field <path>`: The path to the Sudoku puzzle file (required).
+ * - `--print`: Prints the loaded and solved board to the console.
+ * - `--write <path>`: Writes the solved board to the specified file.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv The array of command-line arguments.
+ * @return 0 on success, or 1 on error.
+ */
 int main(int argc, char* argv[]) {
   setLogLevel();
 
