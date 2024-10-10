@@ -1,4 +1,3 @@
-#include <filesystem>
 
 #include "board.hpp"
 #include "constants.hpp"

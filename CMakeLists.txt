@@ -20,7 +20,7 @@ add_subdirectory(libs/googletest)
 add_subdirectory(libs/argparse)
 
 set(LIB_SOURCES src/board.cpp src/game.cpp)
-set(TEST_SOURCES src/tests/main.cpp src/tests/board_test.cpp)
+set(TEST_SOURCES src/tests/main.cpp src/tests/board_test.cpp src/tests/game_test.cpp)
 
 # Add the main executable
 add_executable(${PROGRAM_NAME} src/main.cpp)
