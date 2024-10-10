@@ -1,5 +1,6 @@
 build/
 .cache/
 *.csv
+!example_board.csv
 .direnv/
 .envrc

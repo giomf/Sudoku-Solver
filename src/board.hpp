@@ -120,11 +120,6 @@ class Board {
    * @return A string representing the board in CSV format.
    */
   std::string toString() const;
-
-  /**
-   * @brief Prints the current board to the console.
-   */
-  void write() const;
 };
 
 #endif  // BOARD_H

@@ -98,7 +98,7 @@ std::expected<void, std::string> writeFile(
  * provided.
  *
  * Command-line arguments:
- * - `--field <path>`: The path to the Sudoku puzzle file (required).
+ * - `--board <path>`: The path to the Sudoku puzzle file (required).
  * - `--print`: Prints the loaded and solved board to the console.
  * - `--write <path>`: Writes the solved board to the specified file.
  *
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
 
   argparse::ArgumentParser program("Sudoku Solver");
 
-  program.add_argument("--field").help("The field to be loaded").required();
+  program.add_argument("--board").help("The board to be loaded").required();
   auto& group = program.add_mutually_exclusive_group(true);
   group.add_argument("--print")
       .help("Prints the loaded and solved board")
@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  auto inputFile = program.get<std::string>("--field");
+  auto inputFile = program.get<std::string>("--board");
   auto print = program["--print"];
 
   auto fileResult = loadFile(std::filesystem::path(inputFile));

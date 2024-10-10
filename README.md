@@ -16,6 +16,10 @@ The program solves Sudoku puzzles using a process of elimination, based on the f
 This solver only works for simple Sudoku puzzles where each empty cell has a unique candidate that can be determined by checking its row, column, and section.
 It cannot solve more complex puzzles that require advanced techniques like guessing, backtracking, or naked pairs.
 
+## Getting Started
+
+Load the example board and print the output to the console:  
+`ss --board ./example_board.csv --print`
 
 ## Command-Line Arguments
 
@@ -23,7 +27,7 @@ The program accepts the following command-line arguments:
 
 | Argument            | Description                                                                |
 |---------------------|----------------------------------------------------------------------------|
-| `--field <path>`    | Specifies the path to the Sudoku puzzle file (required).                   |
+| `--board <path>`    | Specifies the path to the Sudoku puzzle file (required).                   |
 | `--print`           | Prints the loaded and solved board to the console.                         |
 | `--write <path>`    | Writes the solved board to the specified file.                             |
 
