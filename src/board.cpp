@@ -7,6 +7,31 @@
 #include "board.hpp"
 #include "constants.hpp"
 
+namespace {
+
+struct SectionPosition {
+  int begin;
+  int end;
+};
+
+/**
+ * @brief Computes the section index pair (begin and end) for a given index.
+ *
+ * Sections refer to 3x3 grids within the board. This function helps map board
+ * indices to section indices.
+ *
+ * @param index The row or column index to map.
+ * @return A tuple containing the begin and end indices for the section.
+ */
+SectionPosition getSectionPosition(const int index) {
+  int begin = (index / SECTION_COUNT) * SECTION_SIZE;
+  int end = begin + SECTION_SIZE;
+
+  return {begin = begin, end = end};
+}
+
+}  // namespace
+
 std::expected<void, std::string> Board::loadBoard(
     const std::string &fileContent) {
   if (fileContent.length() != CSV_FILE_SIZE) {
@@ -58,15 +83,15 @@ Fields Board::getRow(const int row) const { return board[row]; }
 
 Fields Board::getColumn(const int columnIndex) const {
   Fields column;
-  for (int rowIndex = 0; rowIndex < BOARD_SIZE; ++rowIndex) {
+  for (int rowIndex = 0; rowIndex < ROW_COLUMN_LENGTH; ++rowIndex) {
     column[rowIndex] = board[rowIndex][columnIndex];
   }
   return column;
 }
 
 Fields Board::getSection(const int row, const int column) const {
-  auto [rowBegin, rowEnd, columnBegin, columnEnd] =
-      Board::getSectionIndex(row, column);
+  auto [rowBegin, rowEnd] = getSectionPosition(row);
+  auto [columnBegin, columnEnd] = getSectionPosition(column);
   Fields section;
   int index = 0;
   for (int rowIndex = rowBegin; rowIndex < rowEnd; ++rowIndex) {
@@ -80,36 +105,12 @@ Fields Board::getSection(const int row, const int column) const {
   return section;
 }
 
-std::tuple<int, int, int, int> Board::getSectionIndex(const int row,
-                                                      const int column) {
-  auto [rowBegin, rowEnd] = Board::getSectionIndexPair(row);
-  auto [columnBegin, columnEnd] = Board::getSectionIndexPair(column);
-  return std::make_tuple(rowBegin, rowEnd, columnBegin, columnEnd);
-}
-
-std::tuple<int, int> Board::getSectionIndexPair(const int index) {
-  int begin = 0, end = 0;
-
-  if (index >= SECTION_INDEX_1 && index < SECTION_INDEX_2) {
-    begin = SECTION_INDEX_1;
-    end = SECTION_INDEX_2;
-  } else if (index <= SECTION_INDEX_1) {
-    begin = 0;
-    end = SECTION_INDEX_1;
-  } else {
-    begin = SECTION_INDEX_2;
-    end = SECTION_INDEX_3;
-  }
-
-  return std::make_tuple(begin, end);
-}
-
-std::string Board::toString() const {
+std::string Board::toCSVString() const {
   std::stringstream ss;
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    for (int column = 0; column < BOARD_SIZE; ++column) {
+  for (int row = 0; row < ROW_COLUMN_LENGTH; ++row) {
+    for (int column = 0; column < ROW_COLUMN_LENGTH; ++column) {
       ss << getField(row, column);
-      if (column < BOARD_SIZE - 1) {
+      if (column < ROW_COLUMN_LENGTH - 1) {
         ss << ',';
       }
     }

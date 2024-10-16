@@ -134,6 +134,7 @@ int main(int argc, char* argv[]) {
     std::cerr << fileResult.error() << std::endl;
     return 1;
   }
+
   Board board;
   auto loadResult = board.loadBoard(fileResult.value());
   if (!loadResult) {
@@ -142,18 +143,18 @@ int main(int argc, char* argv[]) {
   }
 
   if (print == true) {
-    std::cout << "Read board: \n" << board.toString() << std::endl;
+    std::cout << "Read board: \n" << board.toCSVString() << std::endl;
   }
   Game game(board);
   board = game.solve();
   if (print == true) {
-    std::cout << "Solved board: \n" << board.toString() << std::endl;
+    std::cout << "Solved board: \n" << board.toCSVString() << std::endl;
   }
 
   if (program.present("--write")) {
     auto outputFile = program.get<std::string>("--write");
     auto writeResult =
-        writeFile(std::filesystem::path(outputFile), board.toString());
+        writeFile(std::filesystem::path(outputFile), board.toCSVString());
     std::cout << "Solved board written to " << outputFile << std::endl;
     if (!writeResult) {
       std::cerr << writeResult.error() << std::endl;

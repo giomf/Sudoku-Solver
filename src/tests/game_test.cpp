@@ -71,7 +71,7 @@ TEST(GameTests, solve_Board1) {
 
   Game game(board);
   auto solvedBoard = game.solve();
-  ASSERT_EQ(expectedBoard.toString(), solvedBoard.toString());
+  ASSERT_EQ(expectedBoard.toCSVString(), solvedBoard.toCSVString());
 }
 
 TEST(GameTests, solve_Board2) {
@@ -82,7 +82,7 @@ TEST(GameTests, solve_Board2) {
 
   Game game(board);
   auto solvedBoard = game.solve();
-  ASSERT_EQ(expectedBoard.toString(), solvedBoard.toString());
+  ASSERT_EQ(expectedBoard.toCSVString(), solvedBoard.toCSVString());
 }
 
 TEST(GameTests, solve_Board3) {
@@ -93,5 +93,5 @@ TEST(GameTests, solve_Board3) {
 
   Game game(board);
   auto solvedBoard = game.solve();
-  ASSERT_EQ(expectedBoard.toString(), solvedBoard.toString());
+  ASSERT_EQ(expectedBoard.toCSVString(), solvedBoard.toCSVString());
 }

@@ -4,12 +4,12 @@
 #include <array>
 #include <expected>  // C++23 feature
 #include <string>
-#include <tuple>
 
 #include "constants.hpp"
 
-using RawBoard = std::array<std::array<int, BOARD_SIZE>, BOARD_SIZE>;
-using Fields = std::array<int, BOARD_SIZE>;
+using RawBoard =
+    std::array<std::array<int, ROW_COLUMN_LENGTH>, ROW_COLUMN_LENGTH>;
+using Fields = std::array<int, ROW_COLUMN_LENGTH>;
 
 /**
  * @brief The Board class represents a Sudoku board and provides methods for
@@ -17,30 +17,7 @@ using Fields = std::array<int, BOARD_SIZE>;
  */
 class Board {
  private:
-  std::array<std::array<int, BOARD_SIZE>, BOARD_SIZE>
-      board; /**< The 9x9 Sudoku board represented as a 2D array */
-
-  /**
-   * @brief Computes the section index pair (begin and end) for a given index.
-   *
-   * Sections refer to 3x3 grids within the board. This function helps map board
-   * indices to section indices.
-   *
-   * @param index The row or column index to map.
-   * @return A tuple containing the begin and end indices for the section.
-   */
-  static std::tuple<int, int> getSectionIndexPair(const int index);
-
-  /**
-   * @brief Computes the indices for a 3x3 section based on the row and column.
-   *
-   * @param row The row index.
-   * @param column The column index.
-   * @return A tuple containing the start and end indices for both the row and
-   * column.
-   */
-  static std::tuple<int, int, int, int> getSectionIndex(const int row,
-                                                        const int column);
+  RawBoard board; /**< The 9x9 Sudoku board represented as a 2D array */
 
  public:
   /**
@@ -119,7 +96,7 @@ class Board {
    *
    * @return A string representing the board in CSV format.
    */
-  std::string toString() const;
+  std::string toCSVString() const;
 };
 
 #endif  // BOARD_H
