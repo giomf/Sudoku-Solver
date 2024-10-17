@@ -12,7 +12,14 @@
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [ cmake llvmPackages_19.clang-tools llvmPackages_19.clang ];
+          buildInputs = with pkgs; [
+            cmake
+            llvmPackages_19.clang-tools
+            llvmPackages_19.clang
+            gdb
+            qt6.full
+            qtcreator
+          ];
           env = { };
           shellHook = ''
             export CC=clang
