@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 
 ApplicationWindow {
     visible: true
@@ -8,7 +9,7 @@ ApplicationWindow {
     height: 400
     //minimumWidth: 400
     //minimumHeight: 450
-    title: qsTr("Sudoku Board")
+    title: qsTr("Sudoku Solver")
 
     // Calculate font size based on the width of the window
     property real fontSize: Math.min(width / 20, height / 25)
@@ -48,30 +49,34 @@ ApplicationWindow {
         }
 
         RowLayout {
-            Layout.fillHeight: true  // Make the row layout fill the available width
-            Layout.fillWidth: true  // Make the row layout fill the available width
-            Layout.preferredHeight: 60  // Set a preferred height for the button row
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.preferredHeight: 60
 
             Button {
                 id: solveButton
                 text: qsTr("Solve")
-                onClicked: {
-                    console.log("Solve button clicked")
-                    // Add your logic to solve the Sudoku
-                }
-                Layout.fillWidth: true  // Make the button fill the available width
-                Layout.fillHeight: true  // Make the button fill the available height
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                onClicked: sudoku.solve();
             }
 
             Button {
                 id: loadButton
                 text: qsTr("Load")
-                onClicked: {
-                    console.log("Load button clicked")
-                    // Add your logic to load a Sudoku puzzle
-                }
-                Layout.fillWidth: true  // Make the button fill the available width
-                Layout.fillHeight: true  // Make the button fill the available height
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                onClicked: fileDialog.open();
+            }
+        }
+
+        // FileDialog for loading the board
+        FileDialog {
+            id: fileDialog
+            title: qsTr("Open Sudoku Board")
+            nameFilters: ["CSV Files (*.csv)", "All Files (*)"]
+            onAccepted: {
+                sudoku.load(selectedFile);
             }
         }
     }

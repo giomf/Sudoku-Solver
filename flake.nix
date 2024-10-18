@@ -14,6 +14,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             cmake
+            cmake-language-server
             llvmPackages_19.clang-tools
             llvmPackages_19.clang
             gdb

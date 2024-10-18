@@ -9,6 +9,6 @@ constexpr int SECTION_COUNT = 3;
 constexpr int ROW_COLUMN_LENGTH = SECTION_COUNT * SECTION_SIZE;
 
 constexpr int CSV_LINE_LENGTH = ROW_COLUMN_LENGTH * 2 - 1;
-constexpr int CSV_FILE_SIZE = CSV_LINE_LENGTH * (ROW_COLUMN_LENGTH + 1);
+constexpr int CSV_FILE_SIZE = (CSV_LINE_LENGTH + 1) * ROW_COLUMN_LENGTH;
 
 #endif  // CONSTANTS_H

@@ -1,9 +1,10 @@
 set(PROGRAM_GUI_NAME "${PROGRAM_NAME}_gui")
+set(GUI_SOURCES src/main.cpp src/sudoku.cpp)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup(REQUIRES 6.5)
 
-qt_add_executable(${PROGRAM_GUI_NAME} src/main.cpp)
+qt_add_executable(${PROGRAM_GUI_NAME} ${GUI_SOURCES})
 target_link_libraries(${PROGRAM_GUI_NAME} PRIVATE Qt6::Quick ${PROGRAM_LIB_NAME})
 target_include_directories(${PROGRAM_GUI_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/lib/src")
 qt_add_qml_module(${PROGRAM_GUI_NAME}

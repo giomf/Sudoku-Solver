@@ -26,6 +26,11 @@ constexpr RawBoard VALID_RAW_BOARD = {{
     {0, 0, 0, 0, 0, 0, 0, 0, 1},
 }};
 
+TEST(BoardTests, loadBoard_ValidFileContent) {
+  Board board;
+  ASSERT_TRUE(board.loadBoard(VALID_FILE_CONTENT));
+}
+
 TEST(BoardTests, loadBoard_FieldsSuccessful) {
   Board board;
   ASSERT_TRUE(board.loadBoard(VALID_RAW_BOARD));

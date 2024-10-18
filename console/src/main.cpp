@@ -5,7 +5,7 @@
 
 #include "board.hpp"
 #include "game.hpp"
-#include "helper.cpp"
+#include "helper.hpp"
 
 /**
  * @brief The main function of the Sudoku Solver program.
